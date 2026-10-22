@@ -1,0 +1,93 @@
+name: Verification
+
+on:
+  push:
+    branches: [master, 'feature/**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: python -m pip install -r requirements-dev.txt
+      - name: Lint and format
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: Pure unit tests and core coverage
+        run: >-
+          python -m pytest test/test_arithmetic.py test/test_cli.py
+          --cov=calculator.arithmetic --cov-branch --cov-report=term-missing
+          --cov-fail-under=100 --junitxml=test-results/unit.xml
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: python-results
+          path: test-results/
+
+  ros2:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - distro: humble
+            image: ros:humble-ros-base-jammy
+          - distro: jazzy
+            image: ros:jazzy-ros-base-noble
+    runs-on: ubuntu-latest
+    container: ${{ matrix.image }}
+    env:
+      ROS_DISTRO: ${{ matrix.distro }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build and test dependencies
+        shell: bash
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            python3-colcon-common-extensions python3-pytest \
+            ros-${ROS_DISTRO}-example-interfaces \
+            ros-${ROS_DISTRO}-launch-testing \
+            ros-${ROS_DISTRO}-launch-testing-ros
+      - name: Build and exercise installed nodes
+        shell: bash
+        run: |
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          bash scripts/verify_ros2.sh
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ros2-${{ matrix.distro }}-results
+          path: test-results/
+
+  rostest:
+    runs-on: ubuntu-latest
+    container: ros:noetic-ros-base-focal
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and run the ROS 1 compatibility tests
+        shell: bash
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends ros-noetic-rostest
+          source /opt/ros/noetic/setup.bash
+          mkdir -p /tmp/calculator_catkin_ws/src
+          cp -R compat/ros1/Calculator /tmp/calculator_catkin_ws/src/Calculator
+          cd /tmp/calculator_catkin_ws
+          catkin_make
+          source devel/setup.bash
+          catkin_make run_tests_Calculator
+          catkin_test_results --verbose build/test_results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ros1-rostest-results
+          path: /tmp/calculator_catkin_ws/build/test_results/

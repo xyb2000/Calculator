@@ -6,9 +6,9 @@ import math
 import sys
 
 import rospy
-from calculator_legacy.arithmetic import parse_int64
 
 from Calculator.srv import AddTwoInts
+from calculator_legacy.arithmetic import parse_int64
 
 
 def positive_timeout(text: str) -> float:

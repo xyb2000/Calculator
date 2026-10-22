@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: addition service",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "calculator.service",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {"PYTHONUNBUFFERED": "1", "ROS_DOMAIN_ID": "73"}
+    },
+    {
+      "name": "Python: addition client 12 + 30",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "calculator.client",
+      "args": ["12", "30", "--discovery-timeout", "60", "--request-timeout", "60"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {"PYTHONUNBUFFERED": "1", "ROS_DOMAIN_ID": "73"}
+    },
+    {
+      "name": "Python: publisher",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "calculator.publisher",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {"PYTHONUNBUFFERED": "1", "ROS_DOMAIN_ID": "73"}
+    }
+  ]
+}

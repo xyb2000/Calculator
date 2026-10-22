@@ -5,7 +5,7 @@
   <description>Python calculator with ROS topics, services, launch files and tests.</description>
   <maintainer email="212140325+xyb2000@users.noreply.github.com">xyb2000</maintainer>
   <license>MIT</license>
-  <buildtool_depend>ament_python</buildtool_depend>
+  <buildtool_depend>python3-setuptools</buildtool_depend>
   <exec_depend>rclpy</exec_depend>
   <exec_depend>rcl_interfaces</exec_depend>
   <exec_depend>std_msgs</exec_depend>

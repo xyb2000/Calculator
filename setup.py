@@ -16,6 +16,7 @@ setup(
         (f"share/{PACKAGE_NAME}/launch", glob("launch/*.launch.py")),
     ],
     install_requires=["setuptools"],
+    tests_require=["pytest"],
     zip_safe=True,
     maintainer="xyb2000",
     maintainer_email="212140325+xyb2000@users.noreply.github.com",

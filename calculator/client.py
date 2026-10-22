@@ -18,6 +18,7 @@ class AdditionClient(Node):
     def __init__(self) -> None:
         super().__init__("add_two_ints_client")
         self._client = self.create_client(AddTwoInts, "add_two_ints")
+        self._service_name = self.resolve_service_name("add_two_ints")
 
     def add(
         self,
@@ -28,10 +29,10 @@ class AdditionClient(Node):
         request_timeout: float,
     ) -> int:
         """Return the sum or raise a descriptive communication error."""
-        self.get_logger().info(f"Waiting up to {discovery_timeout:g}s for {self._client.srv_name}")
+        self.get_logger().info(f"Waiting up to {discovery_timeout:g}s for {self._service_name}")
         if not self._client.wait_for_service(timeout_sec=discovery_timeout):
             raise TimeoutError(
-                f"service {self._client.srv_name} unavailable after {discovery_timeout:g}s"
+                f"service {self._service_name} unavailable after {discovery_timeout:g}s"
             )
 
         request = AddTwoInts.Request()
@@ -42,7 +43,7 @@ class AdditionClient(Node):
             rclpy.spin_until_future_complete(self, future, timeout_sec=request_timeout)
             if not future.done():
                 raise TimeoutError(
-                    f"no response from {self._client.srv_name} after {request_timeout:g}s"
+                    f"no response from {self._service_name} after {request_timeout:g}s"
                 )
             if future.cancelled():
                 raise RuntimeError("service request was cancelled")

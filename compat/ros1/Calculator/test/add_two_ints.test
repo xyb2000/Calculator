@@ -4,5 +4,5 @@
     <param name="rate_hz" value="20.0" />
   </node>
   <test pkg="Calculator" type="test_add_two_ints.py" test-name="calculator_integration"
-        time-limit="45.0" output="screen" />
+        time-limit="45.0" />
 </launch>

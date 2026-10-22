@@ -16,7 +16,9 @@ class AdditionServer(Node):
     def __init__(self) -> None:
         super().__init__("add_two_ints_server")
         self._service = self.create_service(AddTwoInts, "add_two_ints", self._handle_add)
-        self.get_logger().info(f"Addition service ready: {self._service.srv_name}")
+        self.get_logger().info(
+            f"Addition service ready: {self.resolve_service_name('add_two_ints')}"
+        )
 
     def _handle_add(
         self,

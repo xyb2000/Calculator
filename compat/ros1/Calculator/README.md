@@ -10,7 +10,8 @@ The package name is intentionally `Calculator` to match the exercise.
 Prerequisites: Ubuntu 20.04 with ROS Noetic, `catkin`, `rospy`, `std_msgs`,
 `message_generation`, and `rostest` installed. Copy only this package into a new
 catkin workspace. Do not put the repository root in that workspace: its primary
-build system is ament, and the root `CATKIN_IGNORE` intentionally excludes it.
+build system is ament. The `compat/COLCON_IGNORE` marker keeps this companion out
+of ROS 2 discovery; catkin should receive only the copied companion package.
 
 Run the following from the repository root in Bash:
 

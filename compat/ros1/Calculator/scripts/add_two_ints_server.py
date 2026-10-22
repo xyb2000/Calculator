@@ -2,9 +2,9 @@
 """Serve signed int64 addition, including deterministic overflow wrapping."""
 
 import rospy
-from calculator_legacy.arithmetic import add_int64
 
 from Calculator.srv import AddTwoInts, AddTwoIntsRequest, AddTwoIntsResponse
+from calculator_legacy.arithmetic import add_int64
 
 
 def handle_add_two_ints(request: AddTwoIntsRequest) -> AddTwoIntsResponse:

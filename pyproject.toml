@@ -15,6 +15,9 @@ exclude = ["build", "install", "log"]
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP"]
 
+[tool.ruff.lint.isort]
+known-first-party = ["calculator", "calculator_legacy", "Calculator"]
+
 [tool.coverage.run]
 source = ["calculator.arithmetic"]
 branch = true

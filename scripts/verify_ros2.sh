@@ -3,6 +3,8 @@
 set -euo pipefail
 
 : "${ROS_DISTRO:?Source your ROS 2 setup.bash before running this script}"
+# Do not let optional import skips hide an incomplete ROS test installation.
+python3 -c 'import rclpy, launch_testing, launch_ros; from example_interfaces.srv import AddTwoInts'
 repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 workspace="${CALCULATOR_TEST_WORKSPACE:-${TMPDIR:-/tmp}/calculator-${ROS_DISTRO}-verify}"
 results="${CALCULATOR_TEST_RESULTS:-${repo_root}/test-results}"

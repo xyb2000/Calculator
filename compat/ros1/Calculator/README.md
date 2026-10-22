@@ -1,7 +1,7 @@
 # ROS 1 compatibility package
 
 This standalone catkin package preserves the literal `rostest` workflow. The
-primary package in this repository targets ROS 2 Humble. Use this companion only
+primary package in this repository targets ROS 2 Humble and Jazzy. Use this companion only
 when a ROS 1 environment is required: ROS 1 Noetic reached end of life in May 2025.
 The package name is intentionally `Calculator` to match the exercise.
 
@@ -47,8 +47,10 @@ rostopic echo /chatter
 
 The Python client prints `42` and exits with status 0. Invalid operands fail
 argument parsing; discovery timeout or a service error exits with status 1. The
-default service discovery timeout is five seconds. ROS 1's synchronous service
-call itself uses the transport's timeout behavior once discovery has succeeded.
+default service discovery timeout is five seconds. After discovery, ROS 1's
+synchronous ServiceProxy call has no application-level response deadline in this
+companion. The rostest harness bounds the entire test run to 45 seconds. Use the
+primary ROS 2 client when a separate bounded response wait is required.
 
 For a launch-managed example client:
 

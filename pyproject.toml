@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=59.6", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+junit_family = "xunit2"
+markers = ["launch_test: requires ROS 2 and launch_testing"]
+
+[tool.ruff]
+target-version = "py38"
+line-length = 99
+exclude = ["build", "install", "log"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.coverage.run]
+source = ["calculator.arithmetic"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 100
+show_missing = true

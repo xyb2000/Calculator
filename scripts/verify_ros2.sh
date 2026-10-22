@@ -22,8 +22,9 @@ set -u
 colcon --log-base "$workspace/log" test \
     --base-paths "$repo_root" --packages-select Calculator \
     --build-base "$workspace/build" \
+    --test-result-base "$results" \
     --install-base "$workspace/install" --event-handlers console_direct+ \
     --python-testing pytest \
     --return-code-on-test-failure \
-    --pytest-args -v --junitxml="$results/ros2.xml"
-colcon test-result --test-result-base "$workspace/build" --verbose
+    --pytest-args ' -v'
+colcon test-result --test-result-base "$results" --verbose

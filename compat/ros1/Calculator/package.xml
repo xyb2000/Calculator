@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>Calculator</name>
+  <version>0.1.0</version>
+  <description>ROS 1 compatibility package for an integer service and a string topic.</description>
+  <maintainer email="maintainer@example.com">Calculator contributors</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>message_generation</build_depend>
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>roslaunch</exec_depend>
+  <test_depend>rostest</test_depend>
+  <test_depend>rosunit</test_depend>
+</package>

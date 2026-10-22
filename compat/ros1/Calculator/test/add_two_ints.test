@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="Calculator" type="add_two_ints_server.py" name="test_add_two_ints_server" output="screen" />
+  <node pkg="Calculator" type="talker.py" name="test_talker" output="screen">
+    <param name="rate_hz" value="20.0" />
+  </node>
+  <test pkg="Calculator" type="test_add_two_ints.py" test-name="calculator_integration"
+        time-limit="45.0" output="screen" />
+</launch>

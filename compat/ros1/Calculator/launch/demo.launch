@@ -1,0 +1,14 @@
+<launch>
+  <arg name="rate_hz" default="10.0" />
+  <arg name="start_client" default="false" />
+  <arg name="a" default="1" />
+  <arg name="b" default="2" />
+
+  <node pkg="Calculator" type="add_two_ints_server.py" name="add_two_ints_server" output="screen" />
+  <node pkg="Calculator" type="talker.py" name="talker" output="screen">
+    <param name="rate_hz" value="$(arg rate_hz)" />
+  </node>
+  <node pkg="Calculator" type="listener.py" name="listener" output="screen" />
+  <node if="$(arg start_client)" pkg="Calculator" type="add_two_ints_client.py"
+        name="add_two_ints_client" args="$(arg a) $(arg b) --timeout 5" output="screen" />
+</launch>

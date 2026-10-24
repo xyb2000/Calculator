@@ -1,0 +1,11 @@
+| 类别 | 文件名 | 作用 |
+|---|---|---|
+| 运算代码 | [calculator/arithmetic.py](https://github.com/xyb2000/Calculator/blob/master/calculator/arithmetic.py) | 加法逻辑与整数边界处理 |
+| 服务端代码 | [calculator/service.py](https://github.com/xyb2000/Calculator/blob/master/calculator/service.py) | 提供加法服务 |
+| 客户端代码 | [calculator/client.py](https://github.com/xyb2000/Calculator/blob/master/calculator/client.py) | 请求服务并输出结果 |
+| 命令行处理 | [calculator/cli.py](https://github.com/xyb2000/Calculator/blob/master/calculator/cli.py) | 参数校验 |
+| 发布者代码 | [calculator/publisher.py](https://github.com/xyb2000/Calculator/blob/master/calculator/publisher.py) | 发布话题消息 |
+| 订阅者代码 | [calculator/subscriber.py](https://github.com/xyb2000/Calculator/blob/master/calculator/subscriber.py) | 接收话题消息 |
+| **运行说明** | [README.md](https://github.com/xyb2000/Calculator/blob/master/README.md) | 环境、构建、运行和测试方法 |
+| **中文测试报告** | [docs/TEST_REPORT.zh-CN.md](https://github.com/xyb2000/Calculator/blob/master/docs/TEST_REPORT.zh-CN.md) | 中文测试说明与结果 |
+| **英文测试报告** | [docs/TEST_REPORT.en.md](https://github.com/xyb2000/Calculator/blob/master/docs/TEST_REPORT.en.md) | 英文测试说明与结果 |

@@ -18,6 +18,7 @@ source /opt/ros/jazzy/setup.bash
 sudo apt update
 sudo apt install python3-colcon-common-extensions python3-rosdep python3-pytest \
   ros-${ROS_DISTRO}-example-interfaces \
+  ros-${ROS_DISTRO}-turtlesim \
   ros-${ROS_DISTRO}-launch-testing ros-${ROS_DISTRO}-launch-testing-ros
 
 mkdir -p ~/calculator_ws/src
@@ -55,6 +56,14 @@ ros2 run Calculator add_two_ints_client 1 2 --discovery-timeout 1 --request-time
 
 服务使用标准 `example_interfaces/srv/AddTwoInts`：`a`、`b`、`sum` 均为有符号 int64。**溢出明确采用 64 位补码回绕**，例如最大值加 1 得到最小值，并记录 WARN；未溢出时就是普通整数加法。CLI 拒绝超出 int64 的输入和无效超时。退出码：成功 `0`，发现/响应失败或中断 `1`，参数错误 `2`。响应超时只停止本地等待，不能撤销服务端已经开始的计算。
 
+## 官方 launch 教程复现（Description 第 3 项）
+
+```bash
+ros2 launch Calculator multisim.launch.py
+```
+
+此命令运行本包安装的官方教程复现文件，启动 `/turtlesim1/turtlesim` 和 `/turtlesim2/turtlesim` 两个独立节点。图形环境中应看到两个海龟窗口。来源、对应的 topic/service、反向运动命令及自动验证见[教程复现记录](docs/tutorial_launch.md)。原有计算器 `demo.launch.py` 继续作为独立示例。
+
 ## 验证
 
 ```bash
@@ -75,6 +84,9 @@ bash scripts/verify_ros2.sh
 - [结构、接口与设计取舍](docs/architecture.md)
 - [命令行、pdb 与 VS Code 调试](docs/debugging.md)
 - [作业要求逐项对照](docs/requirements.md)
+- [官方 launch 教程复现与验证](docs/tutorial_launch.md)
 - [ROS 1 Noetic rostest 兼容包](compat/ros1/Calculator/README.md)
 
 主分支为 `master`，功能分支和合并提交保留在 Git 历史中。源代码不依赖个人机器路径；构建产物、日志和本机环境配置不提交。按要求使用 Python，未实现 C++ 加分项。
+
+原创代码使用 MIT；官方教程复现文件使用其上游 CC BY 4.0 许可，详见[第三方来源说明](THIRD_PARTY_NOTICES.md)。

@@ -12,7 +12,8 @@ setup(
     packages=find_packages(exclude=("test", "test.*", "compat", "compat.*")),
     data_files=[
         ("share/ament_index/resource_index/packages", [f"resource/{PACKAGE_NAME}"]),
-        (f"share/{PACKAGE_NAME}", ["package.xml"]),
+        (f"share/{PACKAGE_NAME}", ["package.xml", "LICENSE", "THIRD_PARTY_NOTICES.md"]),
+        (f"share/{PACKAGE_NAME}/LICENSES", glob("LICENSES/*.txt")),
         (f"share/{PACKAGE_NAME}/launch", glob("launch/*.launch.py")),
     ],
     install_requires=["setuptools"],
@@ -21,7 +22,7 @@ setup(
     maintainer="xyb2000",
     maintainer_email="212140325+xyb2000@users.noreply.github.com",
     description="A readable, tested ROS calculator in Python",
-    license="MIT",
+    license="MIT AND CC-BY-4.0",
     entry_points={
         "console_scripts": [
             "talker = calculator.publisher:main",

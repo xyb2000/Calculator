@@ -10,6 +10,7 @@ Calculator/
     service.py          ROS 请求/响应到运算核心的适配
     client.py           异步请求、有限等待、错误退出
   launch/               topics / service / demo 可组合启动
+                        multisim 复现官方双 turtlesim 教程
   test/                 核心、CLI、真实 ROS 2 集成测试
   compat/ros1/Calculator 独立 catkin / rostest 兼容包
   scripts/              可重复运行的完整验证入口
@@ -28,6 +29,8 @@ flowchart LR
 ```
 
 所有运行端点采用相对名称，因此 namespace 与标准 ROS remap 可以正常生效。服务日志显示最终解析后的完整服务名，便于定位命名空间和重映射问题。
+
+独立的 `multisim.launch.py` 保留官方教程的两个命名空间和 turtlesim_node 配置。它不被计算器 demo 自动启动；专门的集成测试会运行该安装文件，验证两组节点、pose 话题、运动控制隔离及官方反向运动命令。
 
 ## 运算契约
 

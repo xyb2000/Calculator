@@ -1,6 +1,6 @@
 # Calculator Test Report
 
-Date: 2026-10-22. Validated implementation: [`1886a75`](https://github.com/xyb2000/Calculator/commit/1886a75db17cd2c2d6dcdcbf6b7194e11dde9632). Later documentation and merge commits retain the same runtime code.
+The original sections record the 2026-10-22 baseline at [`1886a75`](https://github.com/xyb2000/Calculator/commit/1886a75db17cd2c2d6dcdcbf6b7194e11dde9632). The 2026-10-24 tutorial-launch addendum below records the new verification; historical baseline counts are retained.
 
 ## Scope and implementation
 
@@ -58,3 +58,29 @@ The script builds the package, tests installed nodes, and checks XUnit results. 
 The standard AddTwoInts schema contains only int64 fields and no error status. Overflow therefore follows an explicit signed two's-complement wrap contract, with a server warning. For example, INT64_MAX + 1 returns INT64_MIN. A business requirement to reject overflow would require a different response schema. Timeout cancels local waiting, not work already accepted by a server.
 
 Cross-machine networking, sustained load, real-time performance, and hardware deployment were not tested. Noetic is provided only for compatibility verification. This submission intentionally uses Python and does not claim the C++ bonus. Within the documented environments and contract, all implemented functionality and automated checks passed.
+
+## 2026-10-24 addendum: official launch tutorial reproduction
+
+The new `launch/multisim.launch.py` reproduces the Humble tutorial's two actual
+turtlesim nodes under `turtlesim1` and `turtlesim2`, with the same executable and
+screen output. Upstream attribution and license are recorded in
+`THIRD_PARTY_NOTICES.md`; [the reproduction guide](tutorial_launch.md) documents
+the commands and expected graph.
+
+The installed launch file is exercised by four active tests: both namespaced
+nodes are discovered; both pose topics have publishers; a command to the first
+namespace leaves the second turtle stationary; and the tutorial's linear 2.0,
+angular +1.8/-1.8 commands produce opposite rotations. A fifth method verifies
+clean shutdown of both processes.
+
+The complete local Jazzy build and verification passed **23 pytest collection
+items, with zero errors, failures, or skips**: 21 pure tests plus two launch
+suites. The original suite contains 18 active methods and one shutdown method;
+the new suite contains four active methods and one shutdown method. Qt uses its
+offscreen platform in automated tests; real nodes, messages and services remain
+in use. The Humble/Jazzy CI dependencies now include turtlesim.
+
+Implementation revision: [`1c5b10e`](https://github.com/xyb2000/Calculator/commit/1c5b10e2c63d35f3321b605bc9f4d6b08430c02b).
+The [2026-10-24 CI run](https://github.com/xyb2000/Calculator/actions/runs/40074713390)
+passed all four jobs: Python, Humble, Jazzy and Noetic rostest. Both ROS 2 jobs
+include the new tutorial's real-node verification.

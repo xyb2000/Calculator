@@ -1,6 +1,6 @@
 # Calculator 测试报告
 
-测试日期：2026-10-22。验证代码版本：[`1886a75`](https://github.com/xyb2000/Calculator/commit/1886a75db17cd2c2d6dcdcbf6b7194e11dde9632)。后续文档与合并提交不改变该版本的运行代码。
+第 1–6 节记录 2026-10-22 的基线测试，代码版本为 [`1886a75`](https://github.com/xyb2000/Calculator/commit/1886a75db17cd2c2d6dcdcbf6b7194e11dde9632)。2026-10-24 新增官方 launch 教程复现的验证见第 7 节；历史基线结果保留原始计数。
 
 ## 1. 目的与功能范围
 
@@ -98,3 +98,21 @@ bash scripts/verify_ros2.sh
 本次验证覆盖了作业功能、正常流程、边界与主要通信失败场景。未进行跨机器网络、长期压力、硬件实时性或生产部署验证。标准 AddTwoInts 不包含错误字段，溢出按文档约定回绕；若业务要求溢出报错，应改用带状态的服务定义。大写包名产生已知命名警告。ROS 1 Noetic 仅作兼容验证，不作为新部署建议。提交使用 Python，不声称完成 C++ 加分项。
 
 在上述已验证环境和契约下，包构建成功，功能与自动化测试均通过。
+
+## 7. 2026-10-24：官方 launch 教程复现补充验证
+
+新增 `launch/multisim.launch.py`，保留 Humble 官方示例中的两个 turtlesim_node、命名空间 `turtlesim1` / `turtlesim2` 和 screen 输出配置。出处和许可见 `THIRD_PARTY_NOTICES.md`，操作过程见[教程复现记录](tutorial_launch.md)。
+
+`test/test_tutorial_launch.py` 从本包安装位置加载该文件，启动真实 Qt turtlesim 进程，并检查：
+
+1. 两个节点均以教程指定的独立命名空间出现。
+2. 两组 pose 话题均存在真实发布者。
+3. 向第一组 cmd_vel 发送速度只使第一只海龟移动；第二组持续发布的 pose 保持不变。
+4. 向两组分别发送教程的线速度 2.0、角速度 +1.8 / -1.8，验证相反旋转方向。
+5. 关闭两个进程后，退出码均为 0。
+
+在本机 Ubuntu 24.04 / Jazzy 完整构建并执行后，结果为 **23 个 pytest 收集项通过，0 errors、0 failures、0 skipped**。其中 21 个为纯测试，另外两个为 launch suite：原计算器 suite 含 18 个活动方法与 1 个关闭方法，新增教程 suite 含 4 个活动方法与 1 个关闭方法。
+
+自动测试仅通过 `QT_QPA_PLATFORM=offscreen` 适配无显示器 CI，不替换 ROS、Qt、话题消息或服务。Humble/Jazzy CI 已补齐 turtlesim 依赖；不再仅以计算器自定义启动文件作为第 3 项的交付证据。
+
+新增运行代码版本为 [`1c5b10e`](https://github.com/xyb2000/Calculator/commit/1c5b10e2c63d35f3321b605bc9f4d6b08430c02b)。[2026-10-24 CI 记录](https://github.com/xyb2000/Calculator/actions/runs/40074713390)显示 Python、Humble、Jazzy、Noetic rostest 四组验证均通过。

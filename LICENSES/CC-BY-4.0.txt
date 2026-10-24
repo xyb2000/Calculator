@@ -1,0 +1,10 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+This file provides the license URI for launch/multisim.launch.py, adapted
+from the ROS 2 documentation contributors. It is a license reference,
+not a replacement for the complete legal text.
+
+Canonical license: https://creativecommons.org/licenses/by/4.0/
+Complete legal text: https://creativecommons.org/licenses/by/4.0/legalcode
+Upstream license: https://github.com/ros2/ros2_documentation/blob/humble/LICENSE
+Attribution and modifications: see THIRD_PARTY_NOTICES.md.

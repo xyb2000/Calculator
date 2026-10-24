@@ -4,7 +4,7 @@
 | --- | --- |
 | 创建 Calculator ROS 包并构建 | 根目录 `package.xml`、`setup.py`、`resource/Calculator`；`colcon build` |
 | Git 初始提交、GitHub、master、功能分支 | 本仓库；`git log --all --graph --oneline` 可检查真实提交与合并 |
-| topic、service、launch 概念及启动文件 | `launch/topics.launch.py`、`service.launch.py`、`demo.launch.py` |
+| topic、service、launch 概念及教程 launch 复现 | `launch/multisim.launch.py` 复现官方双 turtlesim 示例；`test/test_tutorial_launch.py` 验证实际命名空间、话题与运动；详见 `docs/tutorial_launch.md`。另提供计算器 topics/service/demo 启动文件 |
 | publisher / subscriber | `calculator/publisher.py`、`subscriber.py`；真实话题与监听日志测试 |
 | server / client | `calculator/service.py`、`client.py`；标准 AddTwoInts 接口、CLI 与超时测试 |
 | test 目录与测试框架 | `test/` 的 pytest / launch_testing；兼容包内 `test/` 的 rostest |
